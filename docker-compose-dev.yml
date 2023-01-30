@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: korrectsports_api
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - korrectsports
+
+  db:
+    image: mysql:8.0
+    container_name: korrectsports_db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - korrectsports
+
+  adminer:
+    image: adminer:4.8.1
+    container_name: korrectsports_adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - korrectsports
+
+volumes:
+  db_data:
+
+networks:
+  korrectsports:
+    driver: bridge
