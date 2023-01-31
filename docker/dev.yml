@@ -3,14 +3,13 @@ version: '3.8'
 services:
   api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: docker/Dockerfile
     container_name: korrectsports_api
     env_file:
-      - .env
+      - ../.env
     volumes:
-      - .:/app
-      - /app/node_modules
+      - ../:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -23,7 +22,7 @@ services:
     container_name: korrectsports_db
     restart: always
     env_file:
-      - .env
+      - ../.env
     volumes:
       - db_data:/var/lib/mysql
     networks:
