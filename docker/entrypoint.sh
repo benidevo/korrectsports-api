@@ -1,7 +1,9 @@
 # wait for MySQL
 echo "Waiting for MySQL..."
 while ! nc -z db 3306; do
-  sleep 0.1
+  sleep 5
 done
+
+npm run typeorm migration:run
 
 npm run start:dev
