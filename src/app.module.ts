@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { TypeormModule as DbConfigModule } from './typeorm/typeorm.module';
 import { TypeOrmOptions } from './typeorm/config';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UsersModule } from './users/users.module';
     DbConfigModule,
     TypeOrmModule.forRoot(TypeOrmOptions),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
