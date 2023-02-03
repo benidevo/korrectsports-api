@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -20,7 +20,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-esm -d src/typeorm/config.ts",
     "migration:run": "npm run typeorm migration:run",
-    "migration:generate": "typeorm migration:generate src/typeorm/migrations/init"
+    "migration:generate": "typeorm migration:generate src/typeorm/migrations/init",
+    "migration:revert": "typeorm migration:revert -d dist/typeorm/config.js"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

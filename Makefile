@@ -21,5 +21,8 @@ devDB-generateMigrations:
 devDB-runMigrations:
 	docker-compose -f docker/dev.yml  exec -it api npm run migration:run
 
+devDB-revertMigrations:
+	docker-compose -f docker/dev.yml exec -it api npm run migration:revert
+
 devDB-drop:
 	docker-compose -f docker/dev.yml  down -v
