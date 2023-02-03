@@ -8,7 +8,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { Request as Req } from 'express';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { ChangePasswordDto } from './dto/password.dto';
