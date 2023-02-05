@@ -8,7 +8,7 @@ up:
 	docker-compose -f docker/prod.yml up -d --remove-orphans
 
 up-dev:
-	docker-compose -f docker/dev.yml up --remove-orphans
+	docker-compose -f docker/dev.yml up -d --remove-orphans
 
 down:
 	docker-compose -f docker/prod.yml down
@@ -26,3 +26,6 @@ devDB-revertMigrations:
 
 devDB-drop:
 	docker-compose -f docker/dev.yml  down -v
+
+show-logs:
+	docker-compose -f docker/dev.yml logs -f
