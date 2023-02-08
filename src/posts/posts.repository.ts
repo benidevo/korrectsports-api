@@ -11,7 +11,10 @@ export class PostsRepository extends Repository<Post> {
   }
 
   async findById(id: string) {
-    const post = await this.findOne({ where: { id } });
+    const post = await this.findOne({
+      where: { id },
+      relations: ['category', 'comments'],
+    });
     return post;
   }
 

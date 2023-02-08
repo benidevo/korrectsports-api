@@ -4,6 +4,9 @@ import * as path from 'path';
 
 const basePath = path.resolve(__dirname, '..');
 const entities = path.join(basePath + '/*/entities/*.entity.{ts,js}');
+const nestedEntities = path.join(
+  basePath + '/*/*//*/entities/*.entity.{ts,js}',
+);
 
 export const TypeOrmOptions: MysqlConnectionOptions = {
   type: 'mysql',
@@ -13,7 +16,7 @@ export const TypeOrmOptions: MysqlConnectionOptions = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   migrations: [__dirname + '/migrations/*.{ts,js}'],
-  entities: [entities],
+  entities: [entities, nestedEntities],
 };
 
 const dataSource = new DataSource(TypeOrmOptions);

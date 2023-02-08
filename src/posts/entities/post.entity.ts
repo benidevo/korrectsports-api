@@ -1,6 +1,7 @@
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../typeorm';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Category } from '../../categories/entities/category.entity';
+import { Comment } from '../modules/comments/entities/comment.entity';
 
 @Entity()
 export class Post extends BaseEntity {
@@ -25,4 +26,7 @@ export class Post extends BaseEntity {
   @ManyToOne(() => Category, (category) => category.posts)
   @JoinColumn({ name: 'category_id' })
   category: Category;
+
+  @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
+  comments: Comment[];
 }
