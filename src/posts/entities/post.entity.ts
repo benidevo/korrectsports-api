@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../typeorm';
 import { Category } from '../../categories/entities/category.entity';
 import { Comment } from '../modules/comments/entities/comment.entity';
+import { Attachment } from '../modules/attachments/entities/attachment.entity';
 
 @Entity()
 export class Post extends BaseEntity {
@@ -29,4 +30,9 @@ export class Post extends BaseEntity {
 
   @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
   comments: Comment[];
+
+  @OneToMany(() => Attachment, (attachment) => attachment.post, {
+    cascade: true,
+  })
+  attachments: Attachment[];
 }
