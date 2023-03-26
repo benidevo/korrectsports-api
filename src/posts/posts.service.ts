@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoriesRepository } from 'src/categories/categories.repository';
+import { ILike } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostsRepository } from './posts.repository';
@@ -25,8 +26,40 @@ export class PostsService {
     return post;
   }
 
-  async findAll() {
-    const posts = await this.postRepository.find();
+  async findAll(recent, q, categId) {
+    if (recent) {
+      // get the most recent 6 posts
+      const posts = await this.postRepository.find({
+        order: {
+          createdAt: 'DESC',
+        },
+        take: 6,
+      });
+      return posts;
+    }
+
+    if (categId) {
+      const category = await this.categoryRepository.findById(categId);
+      if (!category) throw new NotFoundException('Category not found');
+
+      const posts = await this.postRepository.find({
+        relations: ['category'],
+      });
+
+      return posts;
+    }
+
+    if (q) {
+      const posts = await this.postRepository.find({
+        where: {
+          title: ILike(`%${q}%`),
+        },
+        relations: ['category'],
+      });
+      return posts;
+    }
+
+    const posts = await this.postRepository.find({ relations: ['category'] });
     return posts;
   }
 

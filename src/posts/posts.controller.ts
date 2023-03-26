@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -23,9 +24,14 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
+  // retrieve recent=true from query params, but make it optional
   @Get()
-  findAll() {
-    return this.postsService.findAll();
+  findAll(
+    @Query('recent') recent: boolean,
+    @Query('q') q: string,
+    @Query('categId') categId: string,
+  ) {
+    return this.postsService.findAll(recent, q, categId);
   }
 
   @Get(':id')
