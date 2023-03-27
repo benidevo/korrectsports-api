@@ -10,6 +10,8 @@ export class Category extends BaseEntity {
   @Column({ default: '' })
   description: string;
 
-  @OneToMany(() => Post, (post) => post.category)
+  @OneToMany(() => Post, (post) => post.category, { eager: true })
   posts: Post[];
+
+  postCount: number;
 }

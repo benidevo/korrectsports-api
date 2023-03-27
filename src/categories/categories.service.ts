@@ -16,7 +16,13 @@ export class CategoriesService {
   }
 
   async findAll(): Promise<Category[]> {
-    const categories = await this.categoriesRepository.find();
+    const categories = await this.categoriesRepository.find({
+      relations: ['posts'],
+    });
+    categories.forEach((category) => {
+      category.postCount = category.posts.length;
+      delete category.posts;
+    });
     return categories;
   }
 
