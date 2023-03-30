@@ -42,11 +42,7 @@ export class PostsService {
       const category = await this.categoryRepository.findById(categId);
       if (!category) throw new NotFoundException('Category not found');
 
-      const posts = await this.postRepository.find({
-        relations: ['category'],
-      });
-
-      return posts;
+      return category;
     }
 
     if (q) {

@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersRepository } from '../users/users.repository';
 import { LoginDto } from './dto/login.dto';
@@ -20,7 +16,7 @@ export class AuthService {
     const currentPassword = await this.userRepository.getPassword(userId);
 
     if (currentPassword !== oldPassword) {
-      throw new BadRequestException('Incorrect password');
+      throw new UnauthorizedException('Incorrect password');
     }
 
     await this.userRepository.update(userId, { password });
