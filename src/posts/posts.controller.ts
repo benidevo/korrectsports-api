@@ -24,7 +24,6 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
-  // retrieve recent=true from query params, but make it optional
   @Get()
   findAll(
     @Query('recent') recent: boolean,

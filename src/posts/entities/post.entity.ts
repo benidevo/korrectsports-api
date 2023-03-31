@@ -18,7 +18,7 @@ export class Post extends BaseEntity {
   @Column()
   banner: string;
 
-  @Column()
+  @Column({ type: 'text' })
   content: string;
 
   @Column({ name: 'video_link', default: '' })

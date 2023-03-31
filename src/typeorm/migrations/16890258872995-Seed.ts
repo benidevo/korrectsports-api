@@ -1,8 +1,8 @@
 import { User } from '../../users/entities/user.entity';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Seed2617378125500 implements MigrationInterface {
-  name = 'Seed2617378125500';
+export class Seed16890258872995 implements MigrationInterface {
+  name = 'Seed16890258872995';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.manager.save(
