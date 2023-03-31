@@ -11,7 +11,7 @@ up:
 	docker-compose -f docker/prod.yml up -d --remove-orphans
 
 up-staging:
-	docker-compose -f docker/staging.yml up -d --remove-orphans
+	docker-compose -f docker/staging.yml up --remove-orphans
 
 up-dev:
 	docker-compose -f docker/dev.yml up  --remove-orphans
@@ -25,9 +25,9 @@ down-dev:
 	docker-compose -f docker/dev.yml down
 
 devDB-generateMigrations:
-	docker-compose -f docker/dev.yml  exec -it api npm run typeorm migration:generate src/typeorm/migrations/$(name)
+	docker-compose -f docker/dev.yml exec -it api npm run typeorm migration:generate src/typeorm/migrations/$(name)
 devDB-runMigrations:
-	docker-compose -f docker/dev.yml  exec -it api npm run migration:run
+	docker-compose -f docker/dev.yml exec -it api npm run migration:run
 
 devDB-revertMigrations:
 	docker-compose -f docker/dev.yml exec -it api npm run migration:revert

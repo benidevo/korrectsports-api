@@ -1,33 +1,34 @@
 version: '3.8'
 
 services:
-  api:
-    build:
-      context: ../
-      dockerfile: docker/Dockerstaging
-    container_name: korrectsports_api_staging
-    env_file:
-      - ../.env
-    volumes:
-      - ../:/app
-    ports:
-      - "80:8000"
-    depends_on:
-      - db
-    networks:
-      - korrectsports_staging
-
   # api:
-  #   image: 9d8b970bb5e40b864a7f9401528e3fc1e02497c5e58236da899eef3dcbf03672
+  #   build:
+  #     context: ../
+  #     dockerfile: docker/Dockerstaging
   #   container_name: korrectsports_api_staging
   #   env_file:
   #     - ../.env
+  #   volumes:
+  #     - ../:/app
   #   ports:
-  #     - "8000:8000"
+  #     - "80:8000"
   #   depends_on:
   #     - db
   #   networks:
   #     - korrectsports_staging
+
+  api:
+    image: benidevo/korrectsports-api:staging
+    container_name: korrectsports_api_staging
+    env_file:
+      - ../.env
+    ports:
+      - "80:8000"
+    depends_on:
+      - db
+      - adminer
+    networks:
+      - korrectsports_staging
 
   db:
     image: mysql:8.0

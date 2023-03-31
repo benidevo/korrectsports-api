@@ -6,14 +6,25 @@ COPY --chown=node:node package.json .
 COPY --chown=node:node package-lock.json .
 
 RUN npm install -g @nestjs/cli
-RUN npm install -g ts-node
-RUN npm install -g typescript
 
 RUN npm ci
 
 COPY --chown=node:node . .
 
+# give the container access to the .env file
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+
+# give node user permission to access /app/dist folder
+RUN mkdir -p /app/dist \
+  && chown -R node:node /app/dist \
+  && chmod -R 777 /app/dist
+
+# give node user permission to access /app folder
+RUN chown -R node:node /app
+
 USER node
 
+RUN npm run build
 
-CMD ["sh", "/app/docker/staging.sh"]
+CMD ["npm", "run", "start:prod"]
