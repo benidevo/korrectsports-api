@@ -4,14 +4,22 @@ build:
 build-dev:
 	docker-compose -f docker/dev.yml build --no-cache
 
+build-staging:
+	docker-compose -f docker/staging.yml build --no-cache
+
 up:
 	docker-compose -f docker/prod.yml up -d --remove-orphans
+
+up-staging:
+	docker-compose -f docker/staging.yml up -d --remove-orphans
 
 up-dev:
 	docker-compose -f docker/dev.yml up  --remove-orphans
 
 down:
 	docker-compose -f docker/prod.yml down
+down-staging:
+	docker-compose -f docker/staging.yml down
 
 down-dev:
 	docker-compose -f docker/dev.yml down

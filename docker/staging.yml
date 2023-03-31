@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ../
+      dockerfile: docker/Dockerstaging
+    container_name: korrectsports_api_staging
+    env_file:
+      - ../.env
+    volumes:
+      - ../:/app
+    ports:
+      - "80:8000"
+    depends_on:
+      - db
+    networks:
+      - korrectsports_staging
+
+  # api:
+  #   image: 9d8b970bb5e40b864a7f9401528e3fc1e02497c5e58236da899eef3dcbf03672
+  #   container_name: korrectsports_api_staging
+  #   env_file:
+  #     - ../.env
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - korrectsports_staging
+
+  db:
+    image: mysql:8.0
+    container_name: korrectsports_db_staging
+    restart: always
+    env_file:
+      - ../.env
+    volumes:
+      - db_data_staging:/var/lib/mysql
+    networks:
+      - korrectsports_staging
+
+  adminer:
+    image: adminer:4.8.1
+    container_name: korrectsports_adminer_staging
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - korrectsports_staging
+
+volumes:
+  db_data_staging:
+
+networks:
+  korrectsports_staging:
+    driver: bridge

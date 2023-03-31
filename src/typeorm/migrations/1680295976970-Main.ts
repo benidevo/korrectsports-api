@@ -1,14 +1,20 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Main1680259286945 implements MigrationInterface {
-  name = 'Main1680259286945';
+export class Main1680295976970 implements MigrationInterface {
+  name = 'Main1680295976970';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE \`post\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`title\` varchar(255) NOT NULL, \`slug\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`banner\` varchar(255) NOT NULL, \`content\` text NOT NULL, \`video_link\` varchar(255) NOT NULL DEFAULT '', \`category_id\` varchar(36) NULL, UNIQUE INDEX \`IDX_cd1bddce36edc3e766798eab37\` (\`slug\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`category\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`title\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL DEFAULT '', UNIQUE INDEX \`IDX_9f16dbbf263b0af0f03637fa7b\` (\`title\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
-      `CREATE TABLE \`category\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`title\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL DEFAULT '', UNIQUE INDEX \`IDX_9f16dbbf263b0af0f03637fa7b\` (\`title\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`comment\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`content\` varchar(255) NOT NULL, \`post_id\` varchar(36) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE \`attachment\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`value\` varchar(255) NOT NULL, \`isVideo\` tinyint NOT NULL DEFAULT 0, \`post_id\` varchar(36) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE \`post\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`title\` varchar(255) NOT NULL, \`slug\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`banner\` varchar(255) NOT NULL, \`content\` text NOT NULL, \`video_link\` varchar(255) NOT NULL DEFAULT '', \`category_id\` varchar(36) NULL, UNIQUE INDEX \`IDX_cd1bddce36edc3e766798eab37\` (\`slug\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `CREATE TABLE \`tag\` (\`id\` varchar(36) NOT NULL, \`created_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updated_at\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`title\` varchar(255) NOT NULL, UNIQUE INDEX \`IDX_ea660f2baf9c3f3141d7c2ef53\` (\`title\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
@@ -46,12 +52,14 @@ export class Main1680259286945 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE \`tag\``);
     await queryRunner.query(
-      `DROP INDEX \`IDX_9f16dbbf263b0af0f03637fa7b\` ON \`category\``,
-    );
-    await queryRunner.query(`DROP TABLE \`category\``);
-    await queryRunner.query(
       `DROP INDEX \`IDX_cd1bddce36edc3e766798eab37\` ON \`post\``,
     );
     await queryRunner.query(`DROP TABLE \`post\``);
+    await queryRunner.query(`DROP TABLE \`attachment\``);
+    await queryRunner.query(`DROP TABLE \`comment\``);
+    await queryRunner.query(
+      `DROP INDEX \`IDX_9f16dbbf263b0af0f03637fa7b\` ON \`category\``,
+    );
+    await queryRunner.query(`DROP TABLE \`category\``);
   }
 }
