@@ -35,5 +35,8 @@ devDB-revertMigrations:
 devDB-drop:
 	docker-compose -f docker/dev.yml  down -v
 
+stagingDB-drop:
+	docker-compose -f docker/staging.yml down -v
+
 show-logs:
 	docker-compose -f docker/dev.yml logs -f
