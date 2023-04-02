@@ -95,6 +95,12 @@ export class PostsService {
   }
 
   async remove(id: string) {
+    const post = await this.postRepository.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    if (post.banner) {
+      await this.postRepository.deleteBanner(post.banner);
+    }
+
     await this.postRepository.delete(id);
   }
 }

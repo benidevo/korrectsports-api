@@ -10,4 +10,8 @@ export class SharedService {
     const file_url = await this.storageProvider.saveFile(file);
     return file_url;
   }
+
+  async deleteFile(fileUrl: string) {
+    await this.storageProvider.deleteFile(fileUrl);
+  }
 }

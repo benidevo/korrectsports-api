@@ -3,10 +3,14 @@ import { v4 as uuid } from 'uuid';
 import { DataSource, Repository } from 'typeorm';
 import { generateSlug } from '../utils';
 import { Post } from './entities/post.entity';
+import { SharedService } from '../shared/shared.service';
 
 @Injectable()
 export class PostsRepository extends Repository<Post> {
-  constructor(private dataSource: DataSource) {
+  constructor(
+    private dataSource: DataSource,
+    private sharedService: SharedService,
+  ) {
     super(Post, dataSource.createEntityManager());
   }
 
@@ -33,5 +37,9 @@ export class PostsRepository extends Repository<Post> {
       return `${slug}-${uuid().substring(0, 8)}`;
     }
     return slug;
+  }
+
+  async deleteBanner(banner: string) {
+    await this.sharedService.deleteFile(banner);
   }
 }

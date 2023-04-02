@@ -7,5 +7,6 @@ import StorageProvider from './providers/storage.provider';
   imports: [],
   controllers: [SharedController],
   providers: [SharedService, StorageProvider],
+  exports: [SharedService],
 })
 export class SharedModule {}
