@@ -72,11 +72,6 @@ export class PostsService {
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
-    if (updatePostDto?.title) {
-      const slug = await this.postRepository.createSlug(updatePostDto.title);
-      updatePostDto.slug = slug;
-    }
-
     if (updatePostDto?.categoryId) {
       const category = await this.categoryRepository.findById(
         updatePostDto.categoryId,
