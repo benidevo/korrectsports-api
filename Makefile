@@ -16,6 +16,15 @@ up-staging:
 up-dev:
 	docker-compose -f docker/dev.yml up  --remove-orphans
 
+pull:
+	docker-compose -f docker/prod.yml pull api
+
+pull-staging:
+	docker-compose -f docker/staging.yml pull api
+
+pull-dev:
+	docker-compose -f docker/dev.yml pull api
+
 down:
 	docker-compose -f docker/prod.yml down
 down-staging:
